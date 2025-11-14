@@ -28,12 +28,12 @@ import nodemailer from "nodemailer";
  * });
  */
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.sendinblue.com",
   port: 587,
   secure: false,
   auth: {
-    user: "artisandevx@gmail.com",
-    pass: process.env.GOOGLE_APP_PASSWORD,
+    user: process.env.BREVO_USER,
+    pass: process.env.BREVO_API_KEY,
   },
 });
 
