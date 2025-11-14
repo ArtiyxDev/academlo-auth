@@ -1,9 +1,30 @@
+/**
+ * Application Entry Point
+ * 
+ * This is the main entry file for the Academlo Auth API.
+ * It initializes the database connection, synchronizes models,
+ * and starts the Express server.
+ * 
+ * Startup sequence:
+ * 1. Load environment variables from .env file
+ * 2. Test database connection
+ * 3. Sync database models (create/update tables)
+ * 4. Initialize Express application
+ * 5. Start HTTP server on configured port
+ * 
+ * Environment variables required:
+ * - PORT: Server port (default: 3000)
+ * - NODE_ENV: Environment mode (development/production)
+ * - Database configuration (see config/database.ts)
+ * - JWT and email configuration
+ */
+
 import dotenv from "dotenv";
 import createApp from "./app";
 import sequelize from "./config/database";
 import "./models"; // Import models to ensure associations are set up
 
-// Load environment variables
+// Load environment variables from .env file
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;

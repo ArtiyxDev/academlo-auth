@@ -5,6 +5,17 @@ import { generateJWT } from "../utils/jwt";
 import { randomBytes } from "crypto";
 import transporter from "../config/smtp";
 
+/**
+ * Verify User Email
+ * 
+ * Verifies a user's email address using a verification code sent via email.
+ * Upon successful verification, marks the user as verified and deletes the code.
+ * 
+ * @param req.params.code - The unique verification code from the email link
+ * @returns 200 - Email verified successfully
+ * @returns 404 - Invalid verification code or user not found
+ * @returns 500 - Server error during verification
+ */
 export const verifyUserEmail = async (req: Request, res: Response) => {
   const { code } = req.params;
   try {
@@ -29,6 +40,19 @@ export const verifyUserEmail = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * User Login
+ * 
+ * Authenticates a user with email and password credentials.
+ * Validates the password, checks email verification status, and returns a JWT token.
+ * 
+ * @param req.body.email - User's email address
+ * @param req.body.password - User's plain text password
+ * @returns 200 - Login successful with user data and JWT token
+ * @returns 404 - User not found
+ * @returns 401 - Invalid password or email not verified
+ * @returns 500 - Server error during login
+ */
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
@@ -54,6 +78,18 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get User Profile
+ * 
+ * Retrieves the authenticated user's profile information.
+ * Requires JWT authentication via guardMiddleware.
+ * The user ID is extracted from the JWT token and added to request headers.
+ * 
+ * @param req.headers.userId - User ID injected by guardMiddleware from JWT
+ * @returns 200 - User profile data (excluding password)
+ * @returns 404 - User not found
+ * @returns 500 - Server error fetching profile
+ */
 export const getProfile = async (req: Request, res: Response) => {
   try {
     const user = await User.findByPk(Number(req.headers["userId"]));
@@ -68,6 +104,18 @@ export const getProfile = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Request Password Reset
+ * 
+ * Initiates a password reset process by generating a unique reset code
+ * and sending a password reset email to the user.
+ * 
+ * @param req.body.email - User's email address
+ * @param req.body.frontBaseUrl - Frontend URL base for constructing the reset link
+ * @returns 200 - Password reset email sent successfully
+ * @returns 404 - User not found
+ * @returns 500 - Server error sending reset email
+ */
 export const requestPasswordReset = async (req: Request, res: Response) => {
   const { email, frontBaseUrl } = req.body;
   try {
@@ -92,6 +140,18 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Reset Password
+ * 
+ * Completes the password reset process using a reset code from the email.
+ * Validates the code, hashes the new password, updates the user, and deletes the code.
+ * 
+ * @param req.params.code - The unique password reset code from the email link
+ * @param req.body.password - The new password to set (will be hashed)
+ * @returns 200 - Password reset successfully
+ * @returns 404 - Invalid reset code or user not found
+ * @returns 500 - Server error during password reset
+ */
 export const resetPassword = async (req: Request, res: Response) => {
   const { code } = req.params;
   const { password } = req.body;

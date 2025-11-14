@@ -4,6 +4,15 @@ import { hashPassword } from "../utils/password";
 import { randomBytes } from "crypto";
 import transporter from "../config/smtp";
 
+/**
+ * Get All Users
+ * 
+ * Retrieves a list of all users in the system, ordered by creation date (newest first).
+ * Requires JWT authentication. Returns user data excluding passwords for security.
+ * 
+ * @returns 200 - Array of user objects (without password field)
+ * @returns 500 - Server error fetching users
+ */
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await User.findAll({
@@ -29,6 +38,17 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Get User By ID
+ * 
+ * Retrieves a specific user's information by their ID.
+ * Requires JWT authentication. Returns user data excluding password.
+ * 
+ * @param req.params.id - The user's unique identifier
+ * @returns 200 - User object (without password field)
+ * @returns 404 - User not found
+ * @returns 500 - Server error fetching user
+ */
 export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
@@ -52,6 +72,22 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Create User
+ * 
+ * Registers a new user account with email verification.
+ * Hashes the password, creates the user record, generates a verification code,
+ * and sends a verification email to the user.
+ * 
+ * @param req.body.firstName - User's first name
+ * @param req.body.lastName - User's last name
+ * @param req.body.email - User's email address (must be unique)
+ * @param req.body.password - User's password (will be hashed)
+ * @param req.body.country - User's country
+ * @param req.body.image - URL to user's profile image
+ * @returns 201 - User created successfully (without password field)
+ * @returns 500 - Server error creating user (e.g., duplicate email)
+ */
 export const createUser = async (req: Request, res: Response) => {
   const {
     firstName: first_name,
@@ -98,6 +134,21 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Update User
+ * 
+ * Updates an existing user's profile information.
+ * Requires JWT authentication. Does not allow updating email or password.
+ * 
+ * @param req.params.id - The user's unique identifier
+ * @param req.body.firstName - Updated first name
+ * @param req.body.lastName - Updated last name
+ * @param req.body.country - Updated country
+ * @param req.body.image - Updated profile image URL
+ * @returns 200 - User updated successfully (without password field)
+ * @returns 404 - User not found
+ * @returns 500 - Server error updating user
+ */
 export const updateUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   const {
@@ -128,6 +179,17 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Delete User
+ * 
+ * Permanently deletes a user account from the system.
+ * Requires JWT authentication. Associated email codes are also deleted due to CASCADE.
+ * 
+ * @param req.params.id - The user's unique identifier
+ * @returns 200 - User deleted successfully
+ * @returns 404 - User not found
+ * @returns 500 - Server error deleting user
+ */
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
