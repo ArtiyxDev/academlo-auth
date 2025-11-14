@@ -1,2 +1,4 @@
 onlyBuiltDependencies:
   - bcrypt
+  - pre-commit
+  - spawn-sync
