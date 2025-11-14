@@ -6,10 +6,10 @@ dotenv.config();
 
 /**
  * JWT Utility Module
- * 
+ *
  * Provides functions for generating and verifying JSON Web Tokens (JWT)
  * using the jose library for secure token-based authentication.
- * 
+ *
  * Security features:
  * - Uses HS256 (HMAC with SHA-256) algorithm
  * - 5-minute token expiration for enhanced security
@@ -32,12 +32,12 @@ const ALGORITHM = "HS256";
 
 /**
  * Generate JWT Token
- * 
+ *
  * Creates a signed JWT token with the provided payload.
- * 
+ *
  * @param payload - Object containing data to encode in the token (e.g., { id, email })
  * @returns Signed JWT token string
- * 
+ *
  * Token includes:
  * - Custom payload data
  * - Issued at timestamp (iat)
@@ -53,9 +53,9 @@ export const generateJWT = async (payload: any) => {
 
 /**
  * Verify JWT Token
- * 
+ *
  * Validates and decodes a JWT token, checking signature and expiration.
- * 
+ *
  * @param token - JWT token string to verify
  * @returns Decoded payload if token is valid
  * @throws Error if token is invalid, expired, or signature verification fails

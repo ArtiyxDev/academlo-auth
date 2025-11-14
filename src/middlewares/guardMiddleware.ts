@@ -3,20 +3,20 @@ import { verifyJWT } from "../utils/jwt";
 
 /**
  * Authentication Guard Middleware
- * 
+ *
  * Protects routes by validating JWT tokens from the Authorization header.
  * Extracts the user ID from the token and adds it to the request headers
  * for use in subsequent handlers.
- * 
+ *
  * Expected header format: "Authorization: Bearer <jwt-token>"
- * 
+ *
  * @param req - Express request object
  * @param res - Express response object
  * @param next - Express next function to pass control to the next middleware
- * 
+ *
  * @returns 401 - If no authorization header, no token, or invalid token
  * @returns next() - Calls next middleware if token is valid
- * 
+ *
  * Side effects:
  * - Adds userId to req.headers for authenticated requests
  */

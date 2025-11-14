@@ -17,16 +17,16 @@ import {
 
 /**
  * Users Routes
- * 
+ *
  * Defines all user-related and authentication endpoints.
- * 
+ *
  * Public routes (no authentication required):
  * - POST /users - Register new user
  * - GET /users/verify/:code - Verify email
  * - POST /users/login - User login
  * - POST /users/reset_password - Request password reset
  * - POST /users/reset_password/:code - Reset password with code
- * 
+ *
  * Protected routes (require JWT authentication):
  * - GET /users/me - Get current user profile
  * - GET /users - Get all users (admin functionality)

@@ -6,20 +6,20 @@ dotenv.config();
 
 /**
  * Database connection configuration
- * 
+ *
  * This module creates and exports a Sequelize instance configured for PostgreSQL.
  * It supports two configuration modes:
- * 
+ *
  * 1. Production mode (DATABASE_URL exists):
  *    - Uses a single DATABASE_URL connection string
  *    - Enables SSL for secure connections (e.g., Render.com, Heroku)
  *    - SSL certificates are not validated (rejectUnauthorized: false)
- * 
+ *
  * 2. Development mode (individual environment variables):
  *    - Uses separate DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
  *    - No SSL configuration needed for local development
  *    - Defaults to standard PostgreSQL localhost settings
- * 
+ *
  * Logging is disabled in both modes to reduce console output.
  * Enable logging by setting 'logging: console.log' for debugging SQL queries.
  */

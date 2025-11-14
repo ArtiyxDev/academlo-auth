@@ -99,6 +99,7 @@ La API estará disponible en `http://localhost:3000`
 ### Endpoints de Autenticación
 
 #### Registrar un Nuevo Usuario
+
 ```http
 POST /users
 Content-Type: application/json
@@ -114,11 +115,13 @@ Content-Type: application/json
 ```
 
 #### Verificar Email
+
 ```http
 GET /users/verify/:code
 ```
 
 #### Iniciar Sesión
+
 ```http
 POST /users/login
 Content-Type: application/json
@@ -130,6 +133,7 @@ Content-Type: application/json
 ```
 
 **Respuesta:**
+
 ```json
 {
   "user": {
@@ -144,12 +148,14 @@ Content-Type: application/json
 ```
 
 #### Obtener Perfil (Protegido)
+
 ```http
 GET /users/me
 Authorization: Bearer <tu-token-jwt>
 ```
 
 #### Solicitar Restablecimiento de Contraseña
+
 ```http
 POST /users/reset_password
 Content-Type: application/json
@@ -161,6 +167,7 @@ Content-Type: application/json
 ```
 
 #### Restablecer Contraseña
+
 ```http
 POST /users/reset_password/:code
 Content-Type: application/json
@@ -175,18 +182,21 @@ Content-Type: application/json
 Todos estos endpoints requieren autenticación JWT mediante el header `Authorization: Bearer <token>`.
 
 #### Obtener Todos los Usuarios
+
 ```http
 GET /users
 Authorization: Bearer <tu-token-jwt>
 ```
 
 #### Obtener Usuario por ID
+
 ```http
 GET /users/:id
 Authorization: Bearer <tu-token-jwt>
 ```
 
 #### Actualizar Usuario
+
 ```http
 PUT /users/:id
 Authorization: Bearer <tu-token-jwt>
@@ -201,6 +211,7 @@ Content-Type: application/json
 ```
 
 #### Eliminar Usuario
+
 ```http
 DELETE /users/:id
 Authorization: Bearer <tu-token-jwt>
@@ -249,27 +260,29 @@ academlo-auth/
 ## 🗄️ Esquema de Base de Datos
 
 ### Tabla User (Usuario)
-| Campo        | Tipo      | Descripción                    |
-|--------------|-----------|--------------------------------|
-| id           | INTEGER   | Clave primaria, auto-incremento |
-| first_name   | STRING    | Nombre del usuario             |
-| last_name    | STRING    | Apellido del usuario           |
-| email        | STRING    | Dirección de email única       |
-| password     | STRING    | Contraseña hasheada            |
-| country      | STRING    | País del usuario               |
-| image        | STRING    | URL de imagen de perfil        |
-| isVerify     | BOOLEAN   | Estado de verificación de email|
-| createdAt    | TIMESTAMP | Fecha de creación del registro |
-| updatedAt    | TIMESTAMP | Fecha de última actualización  |
+
+| Campo      | Tipo      | Descripción                     |
+| ---------- | --------- | ------------------------------- |
+| id         | INTEGER   | Clave primaria, auto-incremento |
+| first_name | STRING    | Nombre del usuario              |
+| last_name  | STRING    | Apellido del usuario            |
+| email      | STRING    | Dirección de email única        |
+| password   | STRING    | Contraseña hasheada             |
+| country    | STRING    | País del usuario                |
+| image      | STRING    | URL de imagen de perfil         |
+| isVerify   | BOOLEAN   | Estado de verificación de email |
+| createdAt  | TIMESTAMP | Fecha de creación del registro  |
+| updatedAt  | TIMESTAMP | Fecha de última actualización   |
 
 ### Tabla EmailCode (Código de Email)
-| Campo      | Tipo      | Descripción                      |
-|------------|-----------|----------------------------------|
-| id         | INTEGER   | Clave primaria, auto-incremento  |
-| code       | STRING    | Código de verificación/restablecimiento |
-| user_id    | INTEGER   | Clave foránea a User             |
-| createdAt  | TIMESTAMP | Fecha de creación del registro   |
-| updatedAt  | TIMESTAMP | Fecha de última actualización    |
+
+| Campo     | Tipo      | Descripción                             |
+| --------- | --------- | --------------------------------------- |
+| id        | INTEGER   | Clave primaria, auto-incremento         |
+| code      | STRING    | Código de verificación/restablecimiento |
+| user_id   | INTEGER   | Clave foránea a User                    |
+| createdAt | TIMESTAMP | Fecha de creación del registro          |
+| updatedAt | TIMESTAMP | Fecha de última actualización           |
 
 ## 📦 Scripts
 
@@ -319,29 +332,30 @@ git push heroku main
 ## 🧪 Pruebas
 
 Prueba la API usando herramientas como:
+
 - [Postman](https://www.postman.com/)
 - [Insomnia](https://insomnia.rest/)
 - [Thunder Client](https://www.thunderclient.com/) (extensión de VS Code)
 
 ## 🛡️ Referencia de Variables de Entorno
 
-| Variable              | Requerida | Descripción                                    |
-|-----------------------|-----------|------------------------------------------------|
-| PORT                  | No        | Puerto del servidor (por defecto: 3000)        |
-| NODE_ENV              | No        | Modo de entorno (development/production)       |
-| DB_NAME               | Sí*       | Nombre de la base de datos PostgreSQL          |
-| DB_USER               | Sí*       | Nombre de usuario de PostgreSQL                |
-| DB_PASSWORD           | Sí*       | Contraseña de PostgreSQL                       |
-| DB_HOST               | Sí*       | Host de PostgreSQL                             |
-| DB_PORT               | Sí*       | Puerto de PostgreSQL                           |
-| DATABASE_URL          | Sí**      | Cadena de conexión completa a la BD (producción)|
-| JWT_SECRET            | Sí        | Clave secreta para firmar JWT                  |
-| COOKIE_SECRET         | Sí        | Clave secreta para firmar cookies              |
-| GOOGLE_APP_PASSWORD   | Sí        | Contraseña de aplicación de Gmail              |
-| FRONTEND_URL          | Sí        | URL de la aplicación frontend para enlaces     |
+| Variable            | Requerida | Descripción                                      |
+| ------------------- | --------- | ------------------------------------------------ |
+| PORT                | No        | Puerto del servidor (por defecto: 3000)          |
+| NODE_ENV            | No        | Modo de entorno (development/production)         |
+| DB_NAME             | Sí\*      | Nombre de la base de datos PostgreSQL            |
+| DB_USER             | Sí\*      | Nombre de usuario de PostgreSQL                  |
+| DB_PASSWORD         | Sí\*      | Contraseña de PostgreSQL                         |
+| DB_HOST             | Sí\*      | Host de PostgreSQL                               |
+| DB_PORT             | Sí\*      | Puerto de PostgreSQL                             |
+| DATABASE_URL        | Sí\*\*    | Cadena de conexión completa a la BD (producción) |
+| JWT_SECRET          | Sí        | Clave secreta para firmar JWT                    |
+| COOKIE_SECRET       | Sí        | Clave secreta para firmar cookies                |
+| GOOGLE_APP_PASSWORD | Sí        | Contraseña de aplicación de Gmail                |
+| FRONTEND_URL        | Sí        | URL de la aplicación frontend para enlaces       |
 
 \* Requerida para desarrollo local  
-\** Requerida para despliegue en producción
+\*\* Requerida para despliegue en producción
 
 ## 🤝 Contribuciones
 

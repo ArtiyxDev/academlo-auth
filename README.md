@@ -99,6 +99,7 @@ The API will be available at `http://localhost:3000`
 ### Authentication Endpoints
 
 #### Register a New User
+
 ```http
 POST /users
 Content-Type: application/json
@@ -114,11 +115,13 @@ Content-Type: application/json
 ```
 
 #### Verify Email
+
 ```http
 GET /users/verify/:code
 ```
 
 #### Login
+
 ```http
 POST /users/login
 Content-Type: application/json
@@ -130,6 +133,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "user": {
@@ -144,12 +148,14 @@ Content-Type: application/json
 ```
 
 #### Get Profile (Protected)
+
 ```http
 GET /users/me
 Authorization: Bearer <your-jwt-token>
 ```
 
 #### Request Password Reset
+
 ```http
 POST /users/reset_password
 Content-Type: application/json
@@ -161,6 +167,7 @@ Content-Type: application/json
 ```
 
 #### Reset Password
+
 ```http
 POST /users/reset_password/:code
 Content-Type: application/json
@@ -175,18 +182,21 @@ Content-Type: application/json
 All these endpoints require JWT authentication via `Authorization: Bearer <token>` header.
 
 #### Get All Users
+
 ```http
 GET /users
 Authorization: Bearer <your-jwt-token>
 ```
 
 #### Get User by ID
+
 ```http
 GET /users/:id
 Authorization: Bearer <your-jwt-token>
 ```
 
 #### Update User
+
 ```http
 PUT /users/:id
 Authorization: Bearer <your-jwt-token>
@@ -201,6 +211,7 @@ Content-Type: application/json
 ```
 
 #### Delete User
+
 ```http
 DELETE /users/:id
 Authorization: Bearer <your-jwt-token>
@@ -249,27 +260,29 @@ academlo-auth/
 ## 🗄️ Database Schema
 
 ### User Table
-| Field        | Type      | Description                    |
-|--------------|-----------|--------------------------------|
-| id           | INTEGER   | Primary key, auto-increment    |
-| first_name   | STRING    | User's first name              |
-| last_name    | STRING    | User's last name               |
-| email        | STRING    | Unique email address           |
-| password     | STRING    | Hashed password                |
-| country      | STRING    | User's country                 |
-| image        | STRING    | Profile image URL              |
-| isVerify     | BOOLEAN   | Email verification status      |
-| createdAt    | TIMESTAMP | Record creation time           |
-| updatedAt    | TIMESTAMP | Record last update time        |
+
+| Field      | Type      | Description                 |
+| ---------- | --------- | --------------------------- |
+| id         | INTEGER   | Primary key, auto-increment |
+| first_name | STRING    | User's first name           |
+| last_name  | STRING    | User's last name            |
+| email      | STRING    | Unique email address        |
+| password   | STRING    | Hashed password             |
+| country    | STRING    | User's country              |
+| image      | STRING    | Profile image URL           |
+| isVerify   | BOOLEAN   | Email verification status   |
+| createdAt  | TIMESTAMP | Record creation time        |
+| updatedAt  | TIMESTAMP | Record last update time     |
 
 ### EmailCode Table
-| Field      | Type      | Description                      |
-|------------|-----------|----------------------------------|
-| id         | INTEGER   | Primary key, auto-increment      |
-| code       | STRING    | Verification/reset code          |
-| user_id    | INTEGER   | Foreign key to User              |
-| createdAt  | TIMESTAMP | Record creation time             |
-| updatedAt  | TIMESTAMP | Record last update time          |
+
+| Field     | Type      | Description                 |
+| --------- | --------- | --------------------------- |
+| id        | INTEGER   | Primary key, auto-increment |
+| code      | STRING    | Verification/reset code     |
+| user_id   | INTEGER   | Foreign key to User         |
+| createdAt | TIMESTAMP | Record creation time        |
+| updatedAt | TIMESTAMP | Record last update time     |
 
 ## 📦 Scripts
 
@@ -319,29 +332,30 @@ git push heroku main
 ## 🧪 Testing
 
 Test the API using tools like:
+
 - [Postman](https://www.postman.com/)
 - [Insomnia](https://insomnia.rest/)
 - [Thunder Client](https://www.thunderclient.com/) (VS Code extension)
 
 ## 🛡️ Environment Variables Reference
 
-| Variable              | Required | Description                                    |
-|-----------------------|----------|------------------------------------------------|
-| PORT                  | No       | Server port (default: 3000)                    |
-| NODE_ENV              | No       | Environment mode (development/production)      |
-| DB_NAME               | Yes*     | PostgreSQL database name                       |
-| DB_USER               | Yes*     | PostgreSQL username                            |
-| DB_PASSWORD           | Yes*     | PostgreSQL password                            |
-| DB_HOST               | Yes*     | PostgreSQL host                                |
-| DB_PORT               | Yes*     | PostgreSQL port                                |
-| DATABASE_URL          | Yes**    | Full database connection string (production)   |
-| JWT_SECRET            | Yes      | Secret key for JWT signing                     |
-| COOKIE_SECRET         | Yes      | Secret key for cookie signing                  |
-| GOOGLE_APP_PASSWORD   | Yes      | Gmail app password for sending emails          |
-| FRONTEND_URL          | Yes      | Frontend application URL for email links       |
+| Variable            | Required | Description                                  |
+| ------------------- | -------- | -------------------------------------------- |
+| PORT                | No       | Server port (default: 3000)                  |
+| NODE_ENV            | No       | Environment mode (development/production)    |
+| DB_NAME             | Yes\*    | PostgreSQL database name                     |
+| DB_USER             | Yes\*    | PostgreSQL username                          |
+| DB_PASSWORD         | Yes\*    | PostgreSQL password                          |
+| DB_HOST             | Yes\*    | PostgreSQL host                              |
+| DB_PORT             | Yes\*    | PostgreSQL port                              |
+| DATABASE_URL        | Yes\*\*  | Full database connection string (production) |
+| JWT_SECRET          | Yes      | Secret key for JWT signing                   |
+| COOKIE_SECRET       | Yes      | Secret key for cookie signing                |
+| GOOGLE_APP_PASSWORD | Yes      | Gmail app password for sending emails        |
+| FRONTEND_URL        | Yes      | Frontend application URL for email links     |
 
 \* Required for local development  
-\** Required for production deployment
+\*\* Required for production deployment
 
 ## 🤝 Contributing
 

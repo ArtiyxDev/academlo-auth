@@ -6,23 +6,23 @@ import routes from "./routes";
 
 /**
  * Express Application Factory
- * 
+ *
  * Creates and configures an Express application with all necessary middleware
  * and route handlers for the authentication API.
- * 
+ *
  * Middleware stack:
  * 1. CORS - Enable cross-origin requests
  * 2. Cookie Parser - Parse signed cookies
  * 3. JSON Parser - Parse JSON request bodies
  * 4. URL Encoded Parser - Parse form data
  * 5. Morgan - HTTP request logging
- * 
+ *
  * Routes:
  * - / - Health check endpoint
  * - /users - User management and authentication routes
  * - 404 - Not found handler
  * - Error handler - Global error handling middleware
- * 
+ *
  * @returns Configured Express application instance
  */
 const createApp = (): Application => {
