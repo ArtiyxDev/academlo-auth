@@ -1,3 +1,7 @@
+import {
+  TransactionalEmailsApi,
+  TransactionalEmailsApiApiKeys,
+} from "@getbrevo/brevo/dist/api";
 import nodemailer from "nodemailer";
 
 /**
@@ -27,14 +31,10 @@ import nodemailer from "nodemailer";
  *   html: '<p>HTML content</p>'
  * });
  */
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.sendinblue.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_USER,
-    pass: process.env.BREVO_API_KEY,
-  },
-});
+const transporter = new TransactionalEmailsApi();
+transporter.setApiKey(
+  TransactionalEmailsApiApiKeys.apiKey,
+  process.env.BREVO_API_KEY || ""
+);
 
 export default transporter;

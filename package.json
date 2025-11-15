@@ -18,6 +18,7 @@
   "packageManager": "pnpm@10.22.0",
   "@sendgrid/mail": "^8.1.6",
   "dependencies": {
+    "@getbrevo/brevo": "^3.0.1",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

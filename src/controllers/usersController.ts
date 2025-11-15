@@ -3,6 +3,7 @@ import { EmailCode, User } from "../models";
 import { hashPassword } from "../utils/password";
 import { randomBytes } from "crypto";
 import transporter from "../config/smtp";
+import { SendSmtpEmail } from "@getbrevo/brevo/dist/model/models";
 
 /**
  * Get All Users
@@ -96,6 +97,7 @@ export const createUser = async (req: Request, res: Response) => {
     password,
     country,
     image,
+    frontBaseUrl,
   } = req.body;
   try {
     const hashedPassword = await hashPassword(password);
@@ -111,13 +113,13 @@ export const createUser = async (req: Request, res: Response) => {
       user_id: newUser.id,
       code: randomBytes(32).toString("hex"),
     });
-
-    transporter.sendMail({
-      from: '"Verify - No Reply" <artisandevx@gmail.com>',
-      to: newUser.email,
-      subject: "Verify your email",
-      text: `Please verify your email by clicking the following link: ${process.env.FRONTEND_URL}/auth/verify_email/${emailCode.code}`,
-    });
+    const message = new SendSmtpEmail();
+    message.subject = "Verify Your Email Address";
+    message.htmlContent = `<p>Please verify your email by clicking the link below:</p>
+      <a href="${frontBaseUrl}/${emailCode.code}">Verify Email</a>`;
+    message.sender = { email: "artisandevx@gmail.com" };
+    message.to = [{ email: newUser.email }];
+    await transporter.sendTransacEmail(message);
     res.status(201).json({
       id: newUser.id,
       first_name: newUser.first_name,

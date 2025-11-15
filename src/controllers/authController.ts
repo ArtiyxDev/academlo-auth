@@ -4,6 +4,7 @@ import { hashPassword, passwordMatches } from "../utils/password";
 import { generateJWT } from "../utils/jwt";
 import { randomBytes } from "crypto";
 import transporter from "../config/smtp";
+import { SendSmtpEmail } from "@getbrevo/brevo/dist/api";
 
 /**
  * Verify User Email
@@ -127,12 +128,13 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
       user_id: user.id,
       code: randomBytes(32).toString("hex"),
     });
-    transporter.sendMail({
-      from: '"Artiyx - No Reply" <artisandevx@gmail.com>',
-      to: user.email,
-      subject: "Password Reset Request",
-      html: `<p>Click <a href="${frontBaseUrl}/${emailCode.code}">here</a> to reset your password.</p>`,
-    });
+    const message = new SendSmtpEmail();
+    message.subject = "Password Reset Request";
+    message.htmlContent = `<p>Click the link below to reset your password:</p>
+      <a href="${frontBaseUrl}/reset_password/${emailCode.code}">Reset Password</a>`;
+    message.sender = { email: "artisandevx@gmail.com" };
+    message.to = [{ email: user.email }];
+    await transporter.sendTransacEmail(message);
     res.json({ message: "Password reset email sent" });
   } catch (error) {
     console.error("Error requesting password reset:", error);
